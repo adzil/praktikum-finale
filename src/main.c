@@ -2,19 +2,51 @@
 #include "main.h"
 #include "fsm.h"
 
+/** Global Variables **/
+// Put FSM state on global variable to save the FSM task stack space
+fsm_input_t i;
+fsm_output_t o;
+fsm_state_t s;
+
+/** Main loop procedure **/
 int main(void) {
+	/* Initialization code */
 	init_ssp();
 	joystick_init();
 	oled_init();
-	oled_clearScreen(OLED_COLOR_BLACK);
+	oled_clearScreen(OLED_COLOR_WHITE);
 
-    while(1) {
+	/* FreeRTOS task initialization */
+	xTaskCreate(vFSMTask, "FSM Task", 240, NULL, 1, NULL);
+	// Finally, start the scheduler
+	vTaskStartScheduler();
 
-    }
+	// The code should not reach this point
+	while(1);
 
     return 0;
 }
 
+/** FreeRTOS task procedures **/
+/* Finite state machine (FSM) loop task */
+void vFSMTask (void *pvParameters) {
+	/* Variable declaration */
+	portTickType xLastWakeTime;
+
+	// Initialize last wake time tick count
+	xLastWakeTime = xTaskGetTickCount();
+
+	// Main loop
+	while (1) {
+
+		// Delay the task until the next tick time
+		vTaskDelayUntil(&xLastWakeTime, TASK_FSM_DELAY / portTICK_RATE_MS);
+	}
+
+}
+
+/** Initialization procedures **/
+/* SSP initialization for OLED and Joystick */
 static void init_ssp(void) {
 	SSP_CFG_Type SSP_ConfigStruct;
 	PINSEL_CFG_Type PinCfg;

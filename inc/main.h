@@ -20,7 +20,11 @@
 #include "task.h"
 #include "semphr.h"
 
+/* Constant definition */
+#define TASK_FSM_DELAY 100 // in ms
+
 int main (void);
+void vFSMTask (void *);
 static void init_ssp(void);
 
 #endif /* MAIN_H_ */
