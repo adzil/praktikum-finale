@@ -1,5 +1,6 @@
 /* Main includes */
 #include "main.h"
+#include "fsm.h"
 
 int main(void) {
 	init_ssp();
