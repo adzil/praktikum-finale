@@ -38,6 +38,10 @@ void vFSMTask (void *pvParameters) {
 
 	// Main loop
 	while (1) {
+		// Get joystick input
+		i.joystick = joystick_read();
+		// Process the input data on FSM
+		fsm(&o, &i);
 
 		// Delay the task until the next tick time
 		vTaskDelayUntil(&xLastWakeTime, TASK_FSM_DELAY / portTICK_RATE_MS);
