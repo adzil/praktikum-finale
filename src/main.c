@@ -1,6 +1,5 @@
 /* Main includes */
 #include "main.h"
-#include "fsm.h"
 
 /** Global Variables **/
 // Put FSM state on global variable to save the FSM task stack space
@@ -42,6 +41,8 @@ void vFSMTask (void *pvParameters) {
 		i.joystick = joystick_read();
 		// Process the input data on FSM
 		fsm(&o, &i);
+		// Output the data to OLED display
+		output(&o);
 
 		// Delay the task until the next tick time
 		vTaskDelayUntil(&xLastWakeTime, TASK_FSM_DELAY / portTICK_RATE_MS);
@@ -80,4 +81,26 @@ static void init_ssp(void) {
 	SSP_Init(LPC_SSP1, &SSP_ConfigStruct);
 	// Enable SSP peripheral
 	SSP_Cmd(LPC_SSP1, ENABLE);
+}
+
+/** FreeRTOS' related functions **/
+void vApplicationMallocFailedHook( void ) {
+	/* This function will only be called if an API call to create a task, queue
+	or semaphore fails because there is too little heap RAM remaining. */
+	for( ;; );
+}
+
+void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed char *pcTaskName ) {
+	/* This function will only be called if a task overflows its stack.  Note
+	that stack overflow checking does slow down the context switch
+	implementation. */
+	for( ;; );
+}
+
+void vApplicationIdleHook( void ) {
+	/* This example does not use the idle hook to perform any processing. */
+}
+
+void vApplicationTickHook( void ) {
+	/* This example does not use the tick hook to perform any processing. */
 }

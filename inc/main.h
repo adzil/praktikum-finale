@@ -4,6 +4,7 @@
 /* Library includes */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 /* LPC-specific includes */
 #include <cr_section_macros.h>
@@ -20,11 +21,22 @@
 #include "task.h"
 #include "semphr.h"
 
+/* Local includes */
+#include "fsm.h"
+#include "output.h"
+#include "game.h"
+
 /* Constant definition */
 #define TASK_FSM_DELAY 100 // in ms
 
 int main (void);
 void vFSMTask (void *);
 static void init_ssp(void);
+
+/** FreeRTOS' related functions **/
+void vApplicationMallocFailedHook(void);
+void vApplicationStackOverflowHook(xTaskHandle *, signed char *);
+void vApplicationIdleHook(void);
+void vApplicationTickHook(void);
 
 #endif /* MAIN_H_ */

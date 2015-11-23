@@ -1,7 +1,13 @@
 #ifndef FSM_H_
 #define FSM_H_
 
+#include <stdint.h>
 #include "game.h"
+#include "LPC17xx.h"
+#include "lpc17xx_pinsel.h"
+#include "lpc17xx_gpio.h"
+#include "lpc17xx_ssp.h"
+#include "joystick.h"
 
 #define output_main_splash 0
 #define output_main_game 1

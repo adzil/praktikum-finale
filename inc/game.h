@@ -8,4 +8,6 @@
 #define screen_x 64
 #define screen_y 48
 
+#define pad_ypos screen_y - pad_offset - pad_thick
+
 #endif /* GAME_H_ */
