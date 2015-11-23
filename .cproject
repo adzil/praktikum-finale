@@ -36,11 +36,12 @@
 								<option id="com.crt.advproject.gcc.hdrlib.1119370897" name="Library headers" superClass="com.crt.advproject.gcc.hdrlib" value="Redlib" valueType="enumerated"/>
 								<option id="com.crt.advproject.gcc.specs.1958826311" name="Specs" superClass="com.crt.advproject.gcc.specs" value="com.crt.advproject.gcc.specs.codered" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.1972799538" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Lib_CMSISv1p30_LPC17xx/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Lib_EaBaseBoard/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Lib_MCU/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FreeRTOS_Library/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FreeRTOS_Library/portable}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
 								</option>
 								<inputType id="com.crt.advproject.compiler.input.1586618138" superClass="com.crt.advproject.compiler.input"/>
 							</tool>
@@ -78,10 +79,11 @@
 								</option>
 								<option id="gnu.c.link.option.libs.403871632" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="CMSISv1p30_LPC17xx"/>
-									<listOptionValue builtIn="false" value="Lib_MCU"/>
 									<listOptionValue builtIn="false" value="Lib_EaBaseBoard"/>
+									<listOptionValue builtIn="false" value="Lib_MCU"/>
 									<listOptionValue builtIn="false" value="FreeRTOS_Library"/>
 								</option>
+								<option id="com.crt.advproject.link.gcc.multicore.slave.1134138064" name="Multicore configuration" superClass="com.crt.advproject.link.gcc.multicore.slave"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1613317204" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
