@@ -27,11 +27,12 @@ void output (fsm_output_t * o) {
 	}
 
 	// Checks if the main screen is in the splash mode
-	if (o->main == output_main_splash && lo.main != output_main_splash) {
+	if (o->main == output_main_splash) {
 		// Clear the entire screen
 		oled_clearScreen(OLED_COLOR_WHITE);
 		// Splash screen goes here
 		oled_putString(20,20,(uint8_t*)"Pong-Pong", OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+		oled_fillRect(35, (screen_x - ball_size) / 2, 35 + ball_size, ((screen_x - ball_size) / 2) + ball_size, OLED_COLOR_BLACK);
 	} else if (o->main == output_main_game) {
 		/* Redraw the game screen */
 		// Draw the scoreboard
