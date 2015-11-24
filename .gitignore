@@ -1,2 +1,3 @@
 # Do not track debug folder
 /Debug
+*.launch
