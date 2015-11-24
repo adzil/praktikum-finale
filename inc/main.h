@@ -1,3 +1,13 @@
+/**
+ * Praktikum Finale: The Pong-Pong project
+ * Final project for embedded system design experiment course.
+ *
+ * Created by:
+ * * Fadhli Dzil Ikram (13212035)
+ * * Febby Purnama M. (13212041)
+ *
+ */
+
 #ifndef MAIN_H_
 #define MAIN_H_
 
@@ -29,11 +39,12 @@
 /* Constant definition */
 #define TASK_FSM_DELAY 100 // in ms
 
+/* Function prototypes */
 int main (void);
 void vFSMTask (void *);
 static void init_ssp(void);
 
-/** FreeRTOS' related functions **/
+/* FreeRTOS related function prototypes */
 void vApplicationMallocFailedHook(void);
 void vApplicationStackOverflowHook(xTaskHandle *, signed char *);
 void vApplicationIdleHook(void);

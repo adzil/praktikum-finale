@@ -1,9 +1,18 @@
-/* FSM.c - Finite State Machine for Pong-Pong Game.
+/**
+ * Praktikum Finale: The Pong-Pong project
+ * Final project for embedded system design experiment course.
+ *
+ * Created by:
+ * * Fadhli Dzil Ikram (13212035)
+ * * Febby Purnama M. (13212041)
  *
  */
 
+/* Includes */
 #include "fsm.h"
 
+/* FSM function */
+// The FSM function should be called on a periodic time after input sampling
 void fsm (fsm_output_t * o, fsm_input_t * i) {
 	/* Define static state variable */
 	static fsm_state_t s;

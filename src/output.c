@@ -1,20 +1,38 @@
+/**
+ * Praktikum Finale: The Pong-Pong project
+ * Final project for embedded system design experiment course.
+ *
+ * Created by:
+ * * Fadhli Dzil Ikram (13212035)
+ * * Febby Purnama M. (13212041)
+ *
+ */
+
 /* Includes */
 #include "output.h"
 
+/* OLED output function */
+// Should be called after the FSM module modify the output state.
 void output (fsm_output_t * o) {
 	// Last output storage
 	static fsm_output_t lo;
 
-	// Clear screen on new game
+	// Checks if it's a new game
 	if (o->main == output_main_game && lo.main != output_main_game) {
+		// Clear the entire screen
 		oled_clearScreen(OLED_COLOR_WHITE);
+		// Give the last output a same value as the current one
+		lo = *o;
 	}
 
-	// Show splash screen
+	// Checks if the main screen is in the splash mode
 	if (o->main == output_main_splash && lo.main != output_main_splash) {
+		// Clear the entire screen
+		oled_clearScreen(OLED_COLOR_WHITE);
 		// Splash screen goes here
 		oled_putString(20,20,(uint8_t*)"Pong-Pong", OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 	} else if (o->main == output_main_game) {
+		/* Redraw the game screen */
 		// Erase last ball
 		oled_rect(lo.xpos, lo.ypos, lo.xpos + ball_size, lo.ypos + ball_size, OLED_COLOR_WHITE);
 		// Draw new ball
@@ -27,4 +45,7 @@ void output (fsm_output_t * o) {
 		// Game over screen goes here
 		oled_putString(20,20,(uint8_t*)"Game Over", OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 	}
+
+	// Update the last output with the current one
+	lo = *o;
 }

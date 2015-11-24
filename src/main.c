@@ -1,4 +1,14 @@
-/* Main includes */
+/**
+ * Praktikum Finale: The Pong-Pong project
+ * Final project for embedded system design experiment course.
+ *
+ * Created by:
+ * * Fadhli Dzil Ikram (13212035)
+ * * Febby Purnama M. (13212041)
+ *
+ */
+
+/* Includes */
 #include "main.h"
 
 /** Global Variables **/
