@@ -9,6 +9,7 @@
  */
 
 /* Includes */
+#define __OUTPUT_CFILE__
 #include "output.h"
 
 /* OLED output function */
