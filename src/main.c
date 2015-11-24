@@ -16,17 +16,27 @@
 fsm_input_t i;
 fsm_output_t o;
 fsm_state_t s;
+// Accelerometer offset var
+int16_t xoff;
 
 /** Main loop procedure **/
 int main(void) {
+	/* Local variables */
+	int8_t x, y, z;
 	/* Initialization code */
 	init_ssp();
+	init_i2c();
 	joystick_init();
 	oled_init();
+	acc_init();
 	oled_clearScreen(OLED_COLOR_WHITE);
 
+	/* Accelerometer x offset initialization */
+	acc_read(&x, &y, &z);
+	xoff = 0 - x;
+
 	/* FreeRTOS task initialization */
-	xTaskCreate(vFSMTask, "FSM Task", 240, NULL, 1, NULL);
+	xTaskCreate(vFSMTask, NULL, 240, NULL, 1, NULL);
 	// Finally, start the scheduler
 	vTaskStartScheduler();
 
@@ -41,6 +51,7 @@ int main(void) {
 void vFSMTask (void *pvParameters) {
 	/* Variable declaration */
 	portTickType xLastWakeTime;
+	int8_t x, y, z;
 
 	// Initialize last wake time tick count
 	xLastWakeTime = xTaskGetTickCount();
@@ -49,6 +60,9 @@ void vFSMTask (void *pvParameters) {
 	while (1) {
 		// Get joystick input
 		i.joystick = joystick_read();
+		// Get accelerometer input
+		acc_read(&x, &y, &z);
+		i.accel = x + xoff;
 		// Process the input data on FSM
 		fsm(&o, &i);
 		// Output the data to OLED display
@@ -91,6 +105,22 @@ static void init_ssp(void) {
 	SSP_Init(LPC_SSP1, &SSP_ConfigStruct);
 	// Enable SSP peripheral
 	SSP_Cmd(LPC_SSP1, ENABLE);
+}
+
+/* I2C initialization for Accelerometer */
+static void init_i2c(void){
+	PINSEL_CFG_Type PinCfg; // initialize a pin configuration structure
+	/* Initialize I2C2 pin connect */
+	PinCfg.Funcnum = 2; // set the pin to the #2 function -> I2C pin
+	PinCfg.Portnum = 0; // pin in port number #0
+	PinCfg.Pinnum = 10; // the #10 pin in that port number
+	PINSEL_ConfigPin(&PinCfg); // config that pin
+	PinCfg.Pinnum = 11; // the #11 pin in that port number
+	PINSEL_ConfigPin(&PinCfg); // config that pin
+	// Initialize I2C peripheral
+	I2C_Init(LPC_I2C2, 100000); // set I2C function to have 100Khz clockrate
+	/* Enable I2C1 operation */
+	I2C_Cmd(LPC_I2C2, ENABLE); // enable/activate the I2C function
 }
 
 /** FreeRTOS' related functions **/

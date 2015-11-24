@@ -17,11 +17,11 @@
 #include <stdint.h>
 
 /* LPC-specific includes */
-#include <cr_section_macros.h>
 #include "LPC17xx.h"
 #include "lpc17xx_pinsel.h"
 #include "lpc17xx_gpio.h"
 #include "lpc17xx_timer.h"
+#include "lpc17xx_i2c.h"
 #include "lpc17xx_ssp.h"
 #include "joystick.h"
 #include "oled.h"
@@ -29,7 +29,6 @@
 /* FreeRTOS includes */
 #include "FreeRTOS.h"
 #include "task.h"
-#include "semphr.h"
 
 /* Local includes */
 #include "fsm.h"
@@ -37,12 +36,13 @@
 #include "game.h"
 
 /* Constant definition */
-#define TASK_FSM_DELAY 100 // in ms
+#define TASK_FSM_DELAY 50 // in ms
 
 /* Function prototypes */
 int main (void);
 void vFSMTask (void *);
 static void init_ssp(void);
+static void init_i2c(void);
 
 /* FreeRTOS related function prototypes */
 void vApplicationMallocFailedHook(void);

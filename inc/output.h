@@ -20,5 +20,6 @@
 
 /* Function prototypes */
 void output (fsm_output_t *);
+static void intToString(int, uint8_t *, uint32_t, uint32_t);
 
 #endif /* OUTPUT_H_ */
